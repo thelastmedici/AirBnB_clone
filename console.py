@@ -2,7 +2,7 @@
 """import all necesarry modules"""
 
 import cmd
-from models.engine import storage
+from models import storage
 
 class HBNBCommand(cmd.Cmd):
 

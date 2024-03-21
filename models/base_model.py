@@ -3,11 +3,9 @@ import uuid
 import datetime
 from models import storage
 
-"""import all necesarry modules"""
-
 
 class BaseModel:
-    """class BaseModel"""
+    """class BaseModel from which all classes inherit"""
 
     def __init__(self, *args, **kwargs):
         """__init__ method of BaseModel class
