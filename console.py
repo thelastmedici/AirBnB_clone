@@ -2,6 +2,7 @@
 """import all necesarry modules"""
 
 import cmd
+from models.base_model import BaseModel
 from models import storage
 
 class HBNBCommand(cmd.Cmd):
@@ -24,33 +25,68 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, line):
-        '''Function to create a new instance of a class'''
-        if line == "" or line is not None:
-             print("** class name missing **")
+        """Creates an instance saves it to JSON file and prints the id"""
+        if line == "" or line is None:
+            print("** class name missing **")
         elif line not in storage.classes():
             print("** class doesn't exist **")
         else:
-             i = storage.classes()[line]()
-             i.save()
-             print(i.id)
+            b = storage.classes()[line]()
+            b.save()
+            print(b.id)
 
     def do_show(self, line):
-         '''Function to print the string representation of an instance based on the class name and id'''
-         if line == "" or line is not None:
-             print("** class name missing **")
-         else:
-              arg_list = line.split(' ')
-              if arg_list[0] not in storage.classes():
-                  print("** class doesn't exist **")
-              elif len(arg_list) < 2:
-                    print("** instance id missing **")
-              else:
-                    key = arg_list[0] + "." + arg_list[1]
-                    if key in storage.all():
-                        print(storage.all()[key])
-                    else:
-                        print("** no instance found **")
+        """ Prints the string representation of an instance"""
+        if line == "" or line is None:
+            print("** class name missing **")
+        else:
+            arg_list = line.split(' ')
+            if arg_list[0] not in storage.classes():
+                print("** class doesn't exist **")
+            elif len(arg_list) < 2:
+                print("** instance id missing **")
+            else:
+                dict_key = f"{arg_list[0]}.{arg_list[1]}"
+                if dict_key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[dict_key])
 
+    def  do_destroy(self, line):
+        """Deletes an instance based on the class name and id"""
+        if line == "" or line is None:
+            print("""** class name missing **""")
+        else:
+            arg_list = line.split(' ')
+            if arg_list[0] not in storage.classes():
+                print("** class doesn't exist **")
+            elif len(arg_list) < 2:
+                print("** instance id missing **")
+            else:
+                dict_key = f"{arg_list[0]}.{arg_list[1]}"
+                if dict_key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    del storage.all()[dict_key]
+                    storage.save()
+
+    def do_all(self, line):
+        """Prints all string representation of all instances"""
+        if line != "":
+            arg_list = line.split(' ')
+            if arg_list[0] not in storage.classes():
+                print("** class doesn't exist **")
+            else:
+                obj_rep = [str(obj) for key, obj in storage.all().items()
+                      if type(obj).__name__ == arg_list[0]]
+
+                print(obj_rep)
+        else:
+            new_list = [str(obj) for key, obj in storage.all().items()]
+            print(new_list)
+
+    def do_update(self, line):
+        """Updates an instance based on the class name and id"""
 
 if __name__ == '__main__':
 
