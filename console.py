@@ -105,15 +105,37 @@ class HBNBCommand(cmd.Cmd):
         val = match.group(4)
         if not match:
             print("** class name missing **")
-            
-
-
-
-
-
-
-
-
+        elif class_name not in storage.classes():
+            print("** class doesn't exist **")
+        elif uid is None:
+            print("** instance id missing **")
+        else:
+            key = f"{class_name}.{uid}"
+            if key not in storage.all():
+                print("""** no instance found **""")
+            elif not attr:
+                print("** attribute name missing **")
+            elif not val:
+                print("** value missing **")
+            else:
+                cast = None
+                if not re.search('^".*"$', val):
+                    if "." not in val:
+                        cast = int
+                    else:
+                        cast = float
+                else:
+                    val = val.replace('"', '')
+                attr = storage.attr()[class_name]
+                if attr in attr:
+                    val = attr[attr](val)
+                elif cast:
+                    try:
+                        val = cast(val)
+                    except ValueError:
+                        pass
+                setattr(storage.all()[key], attr, val)
+                storage.all()[key].save()
 
 if __name__ == '__main__':
 
