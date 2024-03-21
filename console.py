@@ -25,15 +25,31 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         '''Function to create a new instance of a class'''
-        if line != "" and line is not None:
+        if line == "" or line is not None:
              print("** class name missing **")
         elif line not in storage.classes():
-                print("** class doesn't exist **")
+            print("** class doesn't exist **")
         else:
              i = storage.classes()[line]()
              i.save()
              print(i.id)
 
+    def do_show(self, line):
+         '''Function to print the string representation of an instance based on the class name and id'''
+         if line == "" or line is not None:
+             print("** class name missing **")
+         else:
+              arg_list = line.split(' ')
+              if arg_list[0] not in storage.classes():
+                  print("** class doesn't exist **")
+              elif len(arg_list) < 2:
+                    print("** instance id missing **")
+              else:
+                    key = arg_list[0] + "." + arg_list[1]
+                    if key in storage.all():
+                        print(storage.all()[key])
+                    else:
+                        print("** no instance found **")
 
 
 if __name__ == '__main__':
