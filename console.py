@@ -5,6 +5,7 @@ import cmd
 import re
 from models.base_model import BaseModel
 from models import storage
+import json
 
 class HBNBCommand(cmd.Cmd):
 
