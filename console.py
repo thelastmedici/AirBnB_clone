@@ -2,6 +2,7 @@
 """import all necesarry modules"""
 
 import cmd
+import re
 from models.base_model import BaseModel
 from models import storage
 
@@ -87,7 +88,28 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Updates an instance based on the class name and id"""
+        if line == "" or line is None:
+            print("** class name missing **")
+            return
+        rex = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
+        match = re.search(rex, line)
+        class_name = match.group(1)
+        uid = match.group(2)
+        attr = match.group(3)
+        val = match.group(4)
+        if not match:
+            print("** class name missing **")
+            
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
+
 
     HBNBCommand().cmdloop()
