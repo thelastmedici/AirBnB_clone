@@ -44,6 +44,29 @@ class HBNBCommand(cmd.Cmd):
         self.onecmd(command)
         return command
 
+    def update_dict(self, classname, uid, dict_str):
+        """Update a dictionary of attributes"""
+        s = dict_str.replace("'", '"')
+        l = json.loads(s)
+        if not classname:
+            print("** class name missing **")
+        elif classname not in storage.classes():
+            print("** class doesn't exist **")
+        elif uid is None:
+            print("** instance id missing **")
+        else:
+            key = f"{classname}.{uid}"
+            if key not in storage.all():
+                print("** no instance found **")
+            else:
+                attr = storage.attributes()[classname]
+                for attributes, value in l.items():
+                    if attributes in attr:
+                        value = attr[attributes](value)
+                    setattr(storage.all()[key], attributes, value)
+                storage.all()[key].save()
+
+
     def emptyline(self):
         """opip install pycodestyleverrides default empty line behaviour so no command is executes"""
         pass
@@ -152,7 +175,7 @@ class HBNBCommand(cmd.Cmd):
                         cast = float
                 else:
                     val = val.replace('"', '')
-                attr = storage.attr()[class_name]
+                attr = storage.attributes()[class_name]
                 if attr in attr:
                     val = attr[attr](val)
                 elif cast:

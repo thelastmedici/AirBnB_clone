@@ -56,47 +56,47 @@ class FileStorage:
                         for k, v in obj_dict.items()}
             FileStorage.__objects = obj_dict
 
-    # def attributes(self):
-    #     """Returns a dictionary of valid attributes and their references"""
-    #     attributes = {
-    #         "BaseModel":
-    #             {"id": str,
-    #              "created_at": datetime.datetime,
-    #              "updated_at": datetime.datetime},
+    def attributes(self):
+        """Returns a dictionary of valid attributes and their references"""
+        attributes = {
+            "BaseModel":
+                {"id": str,
+                 "created_at": datetime.datetime,
+                 "updated_at": datetime.datetime},
 
-    #         "User":
-    #             {"email": str,
-    #             "password": str,
-    #             "first_name": str,
-    #             "last_name": str},
+            "User":
+                {"email": str,
+                "password": str,
+                "first_name": str,
+                "last_name": str},
 
-    #         "State":
-    #             {"name": str},
+            "State":
+                {"name": str},
 
-    #         "City":
-    #             {"state-id": str,
-    #              "name": str},
+            "City":
+                {"state-id": str,
+                 "name": str},
 
-    #         "Amenity":
-    #             {"name": str},
+            "Amenity":
+                {"name": str},
 
-    #         "Place":
-    #             {"city_id": str,
-    #              "user_id": str,
-    #              "name": str,
-    #              "description": str,
-    #              "number_rooms": int,
-    #              "number_bathrooms": int,
-    #              "max_guest": int,
-    #              "price_by_night": int,
-    #              "latitude": float,
-    #              "longitude": float,
-    #              "amenity_ids": list},
+            "Place":
+                {"city_id": str,
+                 "user_id": str,
+                 "name": str,
+                 "description": str,
+                 "number_rooms": int,
+                 "number_bathrooms": int,
+                 "max_guest": int,
+                 "price_by_night": int,
+                 "latitude": float,
+                 "longitude": float,
+                 "amenity_ids": list},
 
-    #         "Reviews": {
-    #             "place_id": str,
-    #             "user_id": str,
-    #             "text": str
-    #         }
-    #     }
-    #     return attributes
+            "Reviews": {
+                "place_id": str,
+                "user_id": str,
+                "text": str
+            }
+        }
+        return attributes
