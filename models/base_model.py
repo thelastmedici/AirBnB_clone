@@ -11,7 +11,7 @@ class BaseModel:
         """__init__ method of BaseModel class
         Args:
             args (tuple): arguments
-            kwargs (dict): key word arguments
+            kwargs {dict}: key word arguments
         """
         if kwargs:
             for name, value in kwargs.items():

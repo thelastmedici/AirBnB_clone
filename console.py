@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""import all necesarry modules"""
+"""Entry point of the AirBnB command interpreter console"""
 
 import cmd
 import re
@@ -31,18 +31,18 @@ class HBNBCommand(cmd.Cmd):
             uid = args
             attr_or_dict = False
 
-        attr_value = ""
+        attributes_and_value = ""
         if method == "update" and attr_or_dict:
             match_dict = re.search(r"^{(.*)}$", attr_or_dict)
             if match_dict:
                 self.update_dict(class_name, uid, match_dict.group(1))
                 return ""
-            match_attr_and_value = re.search(r"^(\w+) (.*)$", attr_or_dict)
-            attr_and_value = (match_attr_and_value.group(
-                    1) or "") + " " + (match_attr_and_value.group(2) or "")
-        command = method + " " + class_name + " " + uid + " " + attr_and_value
-        self.onecmd(command)
-        return command
+            match_attributes_and_value = re.search(r"^(\w+) (.*)$", attr_or_dict)
+            attributes_and_value = (match_attributes_and_value.group(
+                    1) or "") + " " + (match_attributes_and_value.group(2) or "")
+        input_command = method + " " + class_name + " " + uid + " " + attributes_and_value
+        self.onecmd(input_command)
+        return input_command
 
     def update_dict(self, classname, uid, dict_str):
         """Update a dictionary of attributes"""
@@ -93,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """ Prints the string representation of an instance"""
-        if line == "" or line is None:
+        if  line is None or line == "":
             print("** class name missing **")
         else:
             arg_list = line.split(' ')
@@ -110,7 +110,7 @@ class HBNBCommand(cmd.Cmd):
 
     def  do_destroy(self, line):
         """Deletes an instance based on the class name and id"""
-        if line == "" or line is None:
+        if  line is None or line == command"":
             print("""** class name missing **""")
         else:
             arg_list = line.split(' ')
@@ -140,6 +140,19 @@ class HBNBCommand(cmd.Cmd):
         else:
             new_list = [str(obj) for key, obj in storage.all().items()]
             print(new_list)
+
+    def do_count(self, line):
+        """" Counts the number of instances of a given class """
+        arg_list = line.split(' ')
+        if not  arg_list[0]:
+            print("** class name missing **")
+        elif arg_list[0] not in storage.classes():
+            print("""** class doesn't exist **""")
+        else:
+            matches = [w for w in storage.all() if w.startswith(arg_list[0] + ".")]
+            print(len(matches))
+
+
 
     def do_update(self, line):
         """Updates an instance based on the class name and id"""
