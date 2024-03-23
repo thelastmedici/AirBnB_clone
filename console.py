@@ -12,6 +12,37 @@ class HBNBCommand(cmd.Cmd):
     """HBNBCommand class"""
 
     prompt = '(hbnb)'
+    def default(self,line):
+        """Catch commands if nothing else matches"""
+        self.precmd(line)
+
+    def _precmd(self, line):
+        match = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", line)
+        if not match:
+            return line
+        class_name = match.group(1)
+        args = match.group(3)
+        method = match.group(2)
+        match_uid_and_args = re.search(r"^\"([^\"]*)\"(?:, (.*))?$", args)
+        if match_uid_and_args:
+            uid = match_uid_and_args.group(1)
+            args = match_uid_and_args.group(2)
+        else:
+            uid = args
+            attr_or_dict = False
+
+        attr_value = ""
+        if method == "update" and attr_or_dict:
+            match_dict = re.search(r"^{(.*)}$", attr_or_dict)
+            if match_dict:
+                self.update_dict(class_name, uid, match_dict.group(1))
+                return ""
+            match_attr_and_value = re.search(r"^(\w+) (.*)$", attr_or_dict)
+            attr_and_value = (match_attr_and_value.group(
+                    1) or "") + " " + (match_attr_and_value.group(2) or "")
+        command = method + " " + class_name + " " + uid + " " + attr_and_value
+        self.onecmd(command)
+        return command
 
     def emptyline(self):
         """opip install pycodestyleverrides default empty line behaviour so no command is executes"""

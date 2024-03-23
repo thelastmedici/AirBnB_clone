@@ -8,7 +8,9 @@ This project is an implementation of an AirBnB clone project from ALX High Progr
 - Object Management: Create, update, and delete objects such as places, amenities, and reviews.
 - Search and Filtering: Search for objects based on various criteria such as location, price, and availability.
 - Booking Management: Create, update, and delete bookings for places.
-- Data Persistence: All data is stored in a file-based database system, ensuring data integrity and persistence across sessions.
+- Data Persistence: AlRead or watch:
+
+cmd modulel data is stored in a file-based database system, ensuring data integrity and persistence across sessions.
 
 
 
