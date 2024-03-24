@@ -33,7 +33,7 @@ class TestReview(unittest.TestCase):
     def test_8_instantiation(self):
         """Tests instantiation of the review class."""
         review = Review()
-        self.assertEqual(str(type(review)),"<class 'models.review.Review'>")
+        self.assertEqual(str(type(review)), "<class 'models.review.Review'>")
         self.assertIsInstance(review, Review)
         self.assertTrue(issubclass(type(review), BaseModel))
 

@@ -11,6 +11,7 @@ from models.engine.file_storage import FileStorage
 from models import storage
 from models.base_model import BaseModel
 
+
 class TestPlace(unittest.TestCase):
     """ This Test case is for the place class."""
 
