@@ -68,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
 
 
     def emptyline(self):
-        """opip install pycodestyleverrides default empty line behaviour so no command is executes"""
+        """overrides default empty line behaviour so no command is executes"""
         pass
 
     def do_quit(self, line):
@@ -151,8 +151,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             matches = [w for w in storage.all() if w.startswith(arg_list[0] + ".")]
             print(len(matches))
-
-
 
     def do_update(self, line):
         """Updates an instance based on the class name and id"""
