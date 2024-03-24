@@ -4,15 +4,16 @@
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """place class
     Attributes:
         city_id (str): city id
         user_id (str): user id
         name (str): name
-        description (str): description 
+        description (str): description
         number_rooms (int): number of rooms
-        number_bathrooms (int): number of bathrooms 
+        number_bathrooms (int): number of bathrooms
         max_quest (int): maximum number of quest
         price_by_night (int): price for a night
         latitude (float): latitude

@@ -18,10 +18,10 @@ class TestUser(unittest.TestCase):
         self.assertIsNotNone(user.id)
         self.assertIsNotNone(user.created_at)
         self.assertIsNotNone(user.updated_at)
-        self.assertIsNotNone(self.email)
-        self.assertIsNotNone(self.password)
-        self.assertIsNotNone(self.first_name)
-        self.assertIsNotNone(self.last_name)
+        self.assertIsNotNone(user.email)
+        self.assertIsNotNone(user.password)
+        self.assertIsNotNone(user.first_name)
+        self.assertIsNotNone(user.last_name)
 
     def test_user_attribute_type(self):
         """Test user attribute type"""

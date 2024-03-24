@@ -7,12 +7,14 @@ from models.base_model import BaseModel
 from models import storage
 import json
 
+
 class HBNBCommand(cmd.Cmd):
 
     """HBNBCommand class"""
 
     prompt = '(hbnb)'
-    def default(self,line):
+
+    def default(self, line):
         """Catch commands if nothing else matches"""
         self.precmd(line)
 
@@ -35,19 +37,24 @@ class HBNBCommand(cmd.Cmd):
         if method == "update" and attr_or_dict:
             match_dict = re.search(r"^{(.*)}$", attr_or_dict)
             if match_dict:
-                self.update_dict(class_name, uid, match_dict.group(1))
+                self.update_dict(
+                    class_name, uid, match_dict.group(1))
                 return ""
-            match_attributes_and_value = re.search(r"^(\w+) (.*)$", attr_or_dict)
-            attributes_and_value = (match_attributes_and_value.group(
-                    1) or "") + " " + (match_attributes_and_value.group(2) or "")
-        input_command = method + " " + class_name + " " + uid + " " + attributes_and_value
+            match_attributes_and_value = re.search(
+                r"^(\w+) (.*)$", attr_or_dict)
+            attributes_and_value = (
+                match_attributes_and_value.group(
+                    1) or "") + " " + (
+                        match_attributes_and_value.group(2) or "")
+        input_command = method
+        + " " + class_name + " " + uid + " " + attributes_and_value
         self.onecmd(input_command)
         return input_command
 
     def update_dict(self, classname, uid, dict_str):
         """Update a dictionary of attributes"""
         s = dict_str.replace("'", '"')
-        l = json.loads(s)
+        loads = json.loads(s)
         if not classname:
             print("** class name missing **")
         elif classname not in storage.classes():
@@ -60,12 +67,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
             else:
                 attr = storage.attributes()[classname]
-                for attributes, value in l.items():
+                for attributes, value in loads.items():
                     if attributes in attr:
                         value = attr[attributes](value)
                     setattr(storage.all()[key], attributes, value)
                 storage.all()[key].save()
-
 
     def emptyline(self):
         """overrides default empty line behaviour so no command is executes"""
@@ -93,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """ Prints the string representation of an instance"""
-        if  line is None or line == "":
+        if line is None or line == "":
             print("** class name missing **")
         else:
             arg_list = line.split(' ')
@@ -149,7 +155,8 @@ class HBNBCommand(cmd.Cmd):
         elif arg_list[0] not in storage.classes():
             print("""** class doesn't exist **""")
         else:
-            matches = [w for w in storage.all() if w.startswith(arg_list[0] + ".")]
+            matches = [
+                w for w in storage.all() if w.startswith(arg_list[0] + ".")]
             print(len(matches))
 
     def do_update(self, line):
@@ -197,7 +204,6 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[key], attr, val)
                 storage.all()[key].save()
 
+
 if __name__ == '__main__':
-
-
     HBNBCommand().cmdloop()
