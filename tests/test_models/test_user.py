@@ -17,7 +17,7 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(user, User)
         self.assertIsNotNone(user.id)
         self.assertIsNotNone(user.created_at)
-        self.assertIsNotNone(self.updated_at)
+        self.assertIsNotNone(user.updated_at)
         self.assertIsNotNone(self.email)
         self.assertIsNotNone(self.password)
         self.assertIsNotNone(self.first_name)
