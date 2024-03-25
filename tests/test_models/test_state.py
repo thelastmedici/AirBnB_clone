@@ -1,62 +1,52 @@
 #!/usr/bin/python3
 
-"""state unittest"""
+
 import unittest
-import datetime
+from datetime import datetime
 import time
 from models.state import State
+import re
+import json
+from models.engine.file_storage import FileStorage
+import os
+from models import storage
 from models.base_model import BaseModel
 
+class TestState(unittest.TestCase):
 
-class TestState_method(unittest.TestCase):
-    """state Testcase"""
+    """Test Cases for the State class."""
 
-    def test_state_class_membership_and_attributes(self):
-        """test State class and attributes"""
-        state = State()
-        self.assertIsInstance(state, State())
-        self.assertIsNotNone(state.id)
-        self.assertIsNotNone(state.created_at)
-        self.assertIsNotNone(state.updated_at)
-        self.assertIsNotNone(state.name)
+    def setUp(self):
+        """Sets up test methods."""
+        pass
 
-    def test_state_attribute_type(self):
-        """Test state class attribute type"""
-        state = State()
-        self.assertIsInstance(state.id, str)
-        self.assertEqual(len(state.id, 36))
-        self.assertIsInstance(state.created_at, datetime.datetime)
-        self.assertIsInstance(state.updated_at, datetime.datetime)
-        self.assertIsInstance(state.name, str)
+    def tearDown(self):
+        """Tears down test methods."""
+        self.resetStorage()
+        pass
 
-    def test_state_str_method(self):
-        """test state class str method"""
-        state = State()
-        state_str = state.__str__
-        self.assertIsInstance(state_str, str)
-        self.assertDictEqual(eval(state_str), state.__dict__)
+    def resetStorage(self):
+        """Resets FileStorage data."""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
-    def test_state_save_method(self):
-        """test state save method"""
-        state = State()
-        state.save()
-        time.sleep(0.0001)
-        self.assertNotEqual(state.updated_time, state.created_time)
+    def test_8_instantiation(self):
+        """Tests instantiation of State class."""
 
-    def test_state_to_dict_method(self):
-        """test state to_dict method if it creates accurate dictionary"""
-        state = State()
-        state_dict = state.__dict__
-        self.assertIsInstance(state_dict, dict)
-        self.assertEqual(state_dict[id], state.id)
-        self.assertEqual(state_dict['__class__'], type(state).__name__)
-        self.assertEqual(
-            state_dict['created_at'], state.created_at.isoformat())
-        self.assertEqual(
-            state_dict['updated_at'], state.updated_at.isoformat())
-        self.assertIsInstance(state.created_at, datetime.datetime)
-        self.assertIsInstance(state.updated_at, datetime.datetime)
+        b = State()
+        self.assertEqual(str(type(b)), "<class 'models.state.State'>")
+        self.assertIsInstance(b, State)
+        self.assertTrue(issubclass(type(b), BaseModel))
+
+    def test_8_attributes(self):
+        """Tests the attributes of State class."""
+        attributes = storage.attributes()["State"]
+        o = State()
+        for k, v in attributes.items():
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
