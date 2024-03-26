@@ -10,6 +10,7 @@ import re
 import json
 import os
 
+
 class TestFileStorage(unittest.TestCase):
     """Test Cases for the FileStorage class."""
 
@@ -30,7 +31,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_5_instantiation(self):
         """Tests instantiation of storage class."""
-        self.assertEqual(type(storage).__name__, "FileStorage" )
+        self.assertEqual(type(storage).__name__, "FileStorage")
 
     def test_3_init_no_args(self):
         """Tests initialization method with no arguments"""
@@ -40,12 +41,11 @@ class TestFileStorage(unittest.TestCase):
         message = "'initialization of object' object needs an argument"
         self.assertEqual(str(err.exception), message)
 
-
     def init_with_many_args(self):
         """Test Initialization with many arguments"""
         self.resetStorage()
         with self.assertRaises(TypeError) as err:
-            b = FileStorage(0,1,2,3,4,5,6,7,8,9)
+            b = FileStorage(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
         message = "object method takes no parameters"
         self.assertEqual(str(err.exception), message)
 
@@ -54,23 +54,21 @@ class TestFileStorage(unittest.TestCase):
         self.resetStorage()
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
-        self.assertEqual(getattr(FileStorage, "_FileStorage__objects"),{})
+        self.assertEqual(getattr(FileStorage, "_FileStorage__objects"), {})
 
     def help_test_all(self, classname):
         """Helper tests all method for classname."""
         self.resetStorage()
-        self.assertEqual(storage.all(),{})
-        new_obj= storage.classes()[classname]()
+        self.assertEqual(storage.all(), {})
+        new_obj = storage.classes()[classname]()
         storage.new(new_obj)
         key = f"{type(new_obj).__name__}, {new_obj.id}"
         self.assertTrue(key in storage.all())
         self.assertEqual(storage.all()[key], new_obj)
 
-
     def all_base_model(self):
         """TEST all method of the BaseModel class"""
         self.help_test_all("BaseModel")
-
 
     def all_user(self):
         """this method test the all method for user"""
@@ -94,5 +92,8 @@ class TestFileStorage(unittest.TestCase):
 
     def all_review(self):
         """test the all method for Review"""
+        self.help_test_all("Review")
 
-    
+
+if __name__ == '__main__':
+    unittest.main()
