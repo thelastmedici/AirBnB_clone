@@ -1,26 +1,28 @@
 #!/usr/bin/python3
-"""Unittest module for the place class."""
-import time
+"""Unittest module for the Place Class."""
+
+import unittest
 from datetime import datetime
+import time
 from models.place import Place
 import re
 import json
-import unittest
-import os
 from models.engine.file_storage import FileStorage
+import os
 from models import storage
 from models.base_model import BaseModel
 
 
 class TestPlace(unittest.TestCase):
-    """ This Test case is for the place class."""
+
+    """Test Cases for the Place class."""
 
     def setUp(self):
-        """Sets up the testing methods."""
+        """Sets up test methods."""
         pass
 
     def tearDown(self):
-        """Tears down the testing methods."""
+        """Tears down test methods."""
         self.resetStorage()
         pass
 
@@ -31,19 +33,20 @@ class TestPlace(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_8_instantiation(self):
-        """Tests instantiation of the place class."""
-        p = Place()
-        self.assertEqual(str(type(p)), "<class 'models.place.Place'>")
-        self.assertIsInstance(p, Place)
-        self.assertTrue(issubclass(type(p), BaseModel))
+        """Tests instantiation of Place class."""
+
+        b = Place()
+        self.assertEqual(str(type(b)), "<class 'models.place.Place'>")
+        self.assertIsInstance(b, Place)
+        self.assertTrue(issubclass(type(b), BaseModel))
 
     def test_8_attributes(self):
-        """"Tests the atrributes of the place class."""
+        """Tests the attributes of Place class."""
         attributes = storage.attributes()["Place"]
-        attr_place = Place()
+        o = Place()
         for k, v in attributes.items():
-            self.assertTrue(hasattr(attr_place, k))
-            self.assertEqual(type(getattr(attr_place, k, None)), v)
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
 
 
 if __name__ == "__main__":

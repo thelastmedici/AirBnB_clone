@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Unittest module for the review class."""
+"""Unittest module for the Review Class."""
+
 import unittest
 from datetime import datetime
 import time
@@ -13,14 +14,15 @@ from models.base_model import BaseModel
 
 
 class TestReview(unittest.TestCase):
-    """ This Test case is for the review class."""
+
+    """Test Cases for the Review class."""
 
     def setUp(self):
-        """Sets up the testing methods."""
+        """Sets up test methods."""
         pass
 
     def tearDown(self):
-        """Tears down the testing methods."""
+        """Tears down test methods."""
         self.resetStorage()
         pass
 
@@ -31,19 +33,20 @@ class TestReview(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_8_instantiation(self):
-        """Tests instantiation of the review class."""
-        review = Review()
-        self.assertEqual(str(type(review)), "<class 'models.review.Review'>")
-        self.assertIsInstance(review, Review)
-        self.assertTrue(issubclass(type(review), BaseModel))
+        """Tests instantiation of Review class."""
+
+        b = Review()
+        self.assertEqual(str(type(b)), "<class 'models.review.Review'>")
+        self.assertIsInstance(b, Review)
+        self.assertTrue(issubclass(type(b), BaseModel))
 
     def test_8_attributes(self):
-        """"Tests the atrributes of the review class."""
+        """Tests the attributes of Review class."""
         attributes = storage.attributes()["Review"]
-        attr_review = Review()
+        o = Review()
         for k, v in attributes.items():
-            self.assertTrue(hasattr(attr_review, k))
-            self.assertEqual(type(getattr(attr_review, k, None)), v)
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
 
 
 if __name__ == "__main__":
